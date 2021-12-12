@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Form";
+}
+<h1>Form</h1>
+<h4>Edit User</h4>
+<hr />
+<div class="row">
+    <div class="col-lg-4 col-md-8">
+        <form id="Form" method="post" autocomplete="off">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group mb-3">
+                        <label for="id" class="form-label">Id</label>
+                        <input name="id" class="easyui-searchbox" style="width:100%" data-options="searcher:onClickSearch, prompt:'Search User'" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="account" class="form-label">Account</label>
+                        <input class="easyui-validatebox" type="text" name="account" style="width:100%" data-options="required:true, validType:['email','length[0,50]'], tipPosition:'bottom'" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input class="easyui-validatebox" type="text" name="name" style="width:100%" data-options="required:true, validType:'length[0,100]', tipPosition:'bottom'" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input class="easyui-validatebox" type="text" name="title" style="width:100%" data-options="required:true, validType:'length[0,20]', tipPosition:'bottom'" />
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday" class="form-label">Birthday</label>
+                        <input class="easyui-datebox" type="text" name="birthday" style="width:100%" />
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="button" class="easyui-linkbutton" data-options="iconCls:'icon-undo'" onclick="$('#Form').form('clear')">Clear</button>
+                    <button type="button" class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="onClickSave()">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    $(() => {
+        $('#Form').form({
+            url: '@Url.Action("EditUser")',
+            success: (data) => {
+                const result = JSON.parse(data);
+                if (result.isOk) {
+                    $('#Form').form('load', result.data);
+                    $.messager.alert('Info', 'Success');
+                } else if (result.error) {
+                    $.messager.alert('Warning', result.error);
+                } else {
+                    $.messager.alert('Warning', 'Fail');
+                }
+            }
+        });
+    });
+
+    function onClickSearch(id) {
+        $.getJSON(`@Url.Action("FindUser")/${id}`, (data) => {
+            $('#Form').form('load', data);
+        })
+        .fail(() => $.messager.alert('Warning', 'Not Found'));
+    }
+
+    function onClickSave() {
+        $('#Form').submit();
+    }
+</script>
+}

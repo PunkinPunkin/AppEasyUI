@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AppEasyUI</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/easyui/themes/bootstrap/easyui.css" />
+    <link rel="stylesheet" href="~/lib/easyui/themes/icon.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AppEasyUI.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="easyui-layout" fit="true">
+        <div region="center" border="false">
+            <div class="easyui-layout" fit="true">
+                <div region="north" border="false" class="d-flex align-items-center justify-content-between header">
+                    <a class="btn logo ms-3" href="/"></a>
+                    <ul class="nav me-5">
+                        <li class="nav-item">
+                            <a href="~/Demo/DataGrid" class="easyui-linkbutton" plain="true" size="large">DataGrid</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Demo/Form" class="easyui-linkbutton" plain="true" size="large">Form</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Demo/Dialog" class="easyui-linkbutton" plain="true" size="large">Dialog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div region="center" border="false" class="pt-3 px-5">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <div region="south" border="false" class="text-center p-3 bg-dark text-light overflow-hidden">
+            &copy; 2021 - AppEasyUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/lib/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/easyui/jquery.easyui.min.js"></script>
+    <script src="~/js/public.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

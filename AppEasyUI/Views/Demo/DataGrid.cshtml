@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "DataGrid";
+}
+<h1>DataGrid</h1>
+<div id="toolbar" style="padding:5px;height:auto">
+    <div class="form-group">
+        <label class="fw-bolder">Birthday:</label>
+        From: <input id="startDate" class="easyui-datebox" type="text" />
+        To: <input id="endDate" class="easyui-datebox" type="text" />
+    </div>
+    <div class="form-group">
+        <label class="fw-bolder">Keyword:</label>
+        <div id="searchType" data-options="onClick:onClickSearchType">
+            <div data-options="name:'account'">Account</div>
+            <div data-options="name:'name'">Name</div>
+            <div data-options="name:'title'">Title</div>
+        </div>
+        <input id="searchbox" class="easyui-searchbox" style="width:100%" data-options="searcher:onClickSearch, menu:'#searchType', prompt:'Please Input Value'" />
+    </div>
+</div>
+<table id="dgUser" class="easyui-datagrid" style="height:auto"
+       data-options="url:'@Url.Action("DemoData")', title:'Demo', toolbar:'#toolbar', singleSelect:true, fitColumns:true, pagination:true">
+    <thead>
+        <tr>
+            <th data-options="field:'id',width:10,sortable:true">ID</th>
+            <th data-options="field:'account',width:30,sortable:true">Account</th>
+            <th data-options="field:'name',width:20,sortable:true">Name</th>
+            <th data-options="field:'birthday',width:20,formatter:dateFormatter,sortable:true">Birthday</th>
+            <th data-options="field:'title',width:20,sortable:true">Title</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+<script type="text/javascript">
+    function onClickSearchType(item) {
+		$('#searchbox').searchbox('textbox').focus();
+	}
+
+    function onClickSearch(keyword, type) {
+        const startDate = $('#startDate').datebox('getValue');
+        const endDate = $('#endDate').datebox('getValue');
+        $('#dgUser').datagrid('load', { type, startDate, endDate, keyword });
+    }
+</script>
+}

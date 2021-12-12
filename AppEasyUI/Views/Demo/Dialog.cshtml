@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Dialog";
+}
+<h1>Modal</h1>
+<button type="button" class="easyui-linkbutton" onclick="callDialog(true);">Show</button>
+<button type="button" class="easyui-linkbutton" onclick="callDialog(true, 3000);">Auto Close</button>
+<div id="demo"></div>
+
+@section Scripts {
+<script type="text/javascript">
+    let showDialog = true;
+    const docUrl = 'https://www.jeasyui.com/documentation/dialog.php';
+    const defaultSetting = {
+        title: 'My Dialog',
+        content: `<div class="card-body">
+        <p class="card-text">Dialog Content.</p>
+        <button type="button" class="btn btn-sm btn-info mb-3 float-end" onclick="openDocLink()">View docs »</a>
+        </div>`
+    };
+    $(() => {
+        $('#demo').dialog({
+            ...defaultSetting,
+            width: 400,
+            cache: false,
+            modal: true,
+            toolbar: [{
+                text: 'Help',
+                iconCls: 'icon-help',
+                handler: () => openDocLink()
+            }],
+            buttons: [{
+                text: 'Close',
+                handler: () => callDialog(false)
+            }],
+            onClose: () => { showDialog = false; }
+        });
+    });
+
+    function openDocLink() {
+        window.open(docUrl, '_blank');
+    }
+
+    function callDialog(show, timer = 0) {
+        $('#demo').dialog('setTitle', defaultSetting.title);
+        if (show !== showDialog) {
+            showDialog = show;
+            if (showDialog) {
+                $('#demo').window('open');
+            } else {
+                $('#demo').window('close');
+            }
+        }
+        if (show && timer > 0) {
+            $('#demo').dialog('setTitle', 'Dialog will auto close in 3 seconds...');
+            setTimeout(() => {
+                callDialog(false)
+            }, timer);
+        }
+    }
+</script>
+}

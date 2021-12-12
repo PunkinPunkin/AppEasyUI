@@ -1,0 +1,33 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.logo {
+    background-image: url('../logo2.png');
+    background-position-y: center;
+    background-repeat: no-repeat;
+    height: 60px;
+    width: 150px;
+}
+
+.header {
+    background: linear-gradient(7deg, #2D3E50 20%, #FFFAE8 100%);
+    background: -moz-linear-gradient(7deg, #2D3E50 20%, #FFFAE8 100%);
+    background: -webkit-linear-gradient(7deg, #2D3E50 20%, #FFFAE8 100%);
+    background: -o-linear-gradient(7deg, #2D3E50 20%, #FFFAE8 100%);
+}
